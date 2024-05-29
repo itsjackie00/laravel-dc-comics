@@ -1,27 +1,26 @@
+<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel base @yield('title','template')</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    @vite('resources/js/app.js')
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel DC Comics</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-
 <body>
-@include('partials.header')
-
-    @yield('content')
-
-@include('partials.footer')
-
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ route('comics.index') }}">Home</a></li>
+                <li><a href="{{ route('comics.create') }}">Create New Comic</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        @yield('content')
+    </main>
+    <footer>
+        <p>&copy; DC Comics Archive</p>
+    </footer>
 </body>
-
 </html>
