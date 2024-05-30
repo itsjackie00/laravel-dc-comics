@@ -1,8 +1,11 @@
 <?php
 
+// app/Http/Controllers/ComicController.php
 namespace App\Http\Controllers;
 
 use App\Models\Comic;
+use App\Http\Requests\StoreComicRequest;
+use App\Http\Requests\UpdateComicRequest;
 use Illuminate\Http\Request;
 
 class ComicController extends Controller
@@ -23,46 +26,20 @@ class ComicController extends Controller
         return view('comics.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreComicRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'thumb' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'series' => 'required|string|max:255',
-            'sale_date' => 'required|date',
-            'type' => 'required|string|max:255',
-        ]);
-
-        Comic::create($data);
+        Comic::create($request->validated());
         return redirect()->route('comics.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Comic  $comic
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Comic $comic)
     {
         return view('comics.edit', compact('comic'));
     }
 
-    public function update(Request $request, Comic $comic)
+    public function update(UpdateComicRequest $request, Comic $comic)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'thumb' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'series' => 'required|string|max:255',
-            'sale_date' => 'required|date',
-            'type' => 'required|string|max:255',
-        ]);
-
-        $comic->update($data);
+        $comic->update($request->validated());
         return redirect()->route('comics.index');
     }
 

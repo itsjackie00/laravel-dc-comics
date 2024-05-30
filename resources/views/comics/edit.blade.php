@@ -3,6 +3,15 @@
 
 @section('content')
     <h1>Edit Comic</h1>
+    @if ($errors->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('comics.update', $comic->id) }}" method="POST">
         @csrf
         @method('PUT')
@@ -34,8 +43,7 @@
             <label>Type</label>
             <input type="text" name="type" value="{{ old('type', $comic->type) }}" required>
         </div>
-        <button type="submit" class="btn btn-warning">Update</button>
+        <button type="submit" class="btn btn-success">Save</button>
     </form>
     <a href="{{ route('comics.index') }}" class="btn btn-secondary">Back to List</a>
 @endsection
-
